@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+        <title>Fraud Detectiion</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="content">
+    
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-md-10">
+                  
+        
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <h3 class="heading mb-4">Transaction Fraud Detection</h3>
+                    </div>
+
+                    <div class="col-md-12">
+                      <form class="mb-5" action="{{ url_for('predict')}}" method="post" id="inputForm" name="inputForm">
+                        <div class="row">
+                            <label class="outer-label"><h5>Average Order Total of the User in</h5></label>
+                          <div class="col-md-12 form-group field-group">
+                            
+                            <input type="text" class="form-control" id="account_number_avg_order_total_per_account_number_1day" name="account_number_avg_order_total_per_account_number_1day" placeholder="Past 1 day" required="required">
+                            <input type="text" class="form-control" id="account_number_avg_order_total_per_account_number_30day" name="account_number_avg_order_total_per_account_number_30day" placeholder="Past 30 days" required="required" />
+                            <input type="text" class="form-control" id="account_number_avg_order_total_per_account_number_7day" name="account_number_avg_order_total_per_account_number_7day" placeholder="Past 7 days" required="required" />
+                            <input type="text" class="form-control" id="account_number_avg_order_total_per_account_number_90day" name="account_number_avg_order_total_per_account_number_90day" placeholder="Past 90 days" required="required" />
+                          </div>
+                        </div>
+                        <div class="row">
+                            <label class="outer-label"><h5>Number of Distinct Transactions by the User in</h5></label>
+                            <div class="col-md-12 form-group field-group">
+                              
+                              <input type="text" class="form-control" id="account_number_num_distinct_transaction_per_account_number_1day" name="account_number_num_distinct_transaction_per_account_number_1day" placeholder="Past 1 day" required="required">
+                              <input type="text" class="form-control" id="account_number_num_distinct_transaction_per_account_number_30day" name="account_number_num_distinct_transaction_per_account_number_30day" placeholder="Past 30 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_distinct_transaction_per_account_number_7day" name="account_number_num_distinct_transaction_per_account_number_7day" placeholder="Past 7 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_distinct_transaction_per_account_number_90day" name="account_number_num_distinct_transaction_per_account_number_90day" placeholder="Past 90 days" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="outer-label"><h5>Number of Fraudulant Transactions by the User in</h5></label>
+                            <div class="col-md-12 form-group field-group">
+                              
+                              <input type="text" class="form-control" id="account_number_num_fraud_transactions_per_account_number_1day" name="account_number_num_fraud_transactions_per_account_number_1day" placeholder="Past 1 day" required="required">
+                              <input type="text" class="form-control" id="account_number_num_fraud_transactions_per_account_number_30day" name="account_number_num_fraud_transactions_per_account_number_30day" placeholder="Past 30 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_fraud_transactions_per_account_number_7day" name="account_number_num_fraud_transactions_per_account_number_7day" placeholder="Past 7 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_fraud_transactions_per_account_number_90day" name="account_number_num_fraud_transactions_per_account_number_90day" placeholder="Past 90 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_fraud_transactions_per_account_number_lifetime" name="account_number_num_fraud_transactions_per_account_number_lifetime" placeholder="All time" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="outer-label"><h5>Number of Order Items by the User in</h5></label>
+                            <div class="col-md-12 form-group field-group">  
+                              <input type="text" class="form-control" id="account_number_num_order_items_per_account_number_1day" name="account_number_num_order_items_per_account_number_1day" placeholder="Past 1 day" required="required">
+                              <input type="text" class="form-control" id="account_number_num_order_items_per_account_number_30day" name="account_number_num_order_items_per_account_number_30day" placeholder="Past 30 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_order_items_per_account_number_7day" name="account_number_num_order_items_per_account_number_7day" placeholder="Past 7 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_order_items_per_account_number_90day" name="account_number_num_order_items_per_account_number_90day" placeholder="Past 90 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_num_order_items_per_account_number_lifetime" name="account_number_num_order_items_per_account_number_lifetime" placeholder="All time" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="outer-label"><h5>Sum of Order Totals by the User in</h5></label>
+                            <div class="col-md-12 form-group field-group">
+                                
+                              <input type="text" class="form-control" id="account_number_sum_order_total_per_account_number_1day" name="account_number_sum_order_total_per_account_number_1day" placeholder="Past 1 day" required="required">
+                              <input type="text" class="form-control" id="account_number_sum_order_total_per_account_number_30day" name="account_number_sum_order_total_per_account_number_30day" placeholder="Past 30 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_sum_order_total_per_account_number_7day" name="account_number_sum_order_total_per_account_number_7day" placeholder="Past 7 days" required="required" />
+                              <input type="text" class="form-control" id="account_number_sum_order_total_per_account_number_90day" name="account_number_sum_order_total_per_account_number_90day" placeholder="Past 90 days" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group single-field-group">
+                                <label><h5>Is Billing and Shipping address have same city ?  </h5></label>
+                                <input type="text" class="form-control" id="is_billing_shipping_city_same" name="is_billing_shipping_city_same" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group single-field-group">
+                                <label><h5>Is an existing user ?  </h5></label>
+                                <input type="text" class="form-control" id="is_existing_user" name="is_existing_user" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group single-field-group">
+                                <label><h5>Number of Order Items in Current Transaction  </h5></label>
+                                <input type="text" class="form-control" id="num_order_items" name="num_order_items" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group single-field-group">
+                                <label><h5>Order Total of the current transaction  </h5></label>
+                                <input type="text" class="form-control" id="order_total" name="order_total" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group single-field-group">
+                                <label><h5>Status of the Transaction  </h5></label>
+                                <input type="text" class="form-control" id="status" name="status" required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="submit" value="Verify" class="btn btn-primary rounded-0 py-2 px-4">
+                          </div>
+                        </div>
+                      </form>
+                      <div id="dialog"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.validate.min.js"></script>
+    <script src="static/js/main.js"></script>
+</html>
